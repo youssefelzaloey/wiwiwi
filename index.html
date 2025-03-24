@@ -125,6 +125,10 @@
     </div>
 
     <script>
+        const encodedLink = "aHR0cHM6Ly92aW1lby5jb20vMTA2ODcyOTU0MA==";
+        const videoUrl = atob(encodedLink);
+        document.getElementById("videoUrl").href = videoUrl;
+
         function checkAnswer1() {
             const correctAnswer1 = "irelia";
             const userAnswer1 = document.getElementById("answer1").value.toLowerCase();
@@ -201,7 +205,6 @@
             if (userAnswer === correctAnswer) {
                 if (timerInterval) clearInterval(timerInterval);
                 videoLinkDiv.style.display = "block";
-                document.getElementById("videoUrl").href = "https://vimeo.com/1068729540";
             } else {
                 attempts--;
                 document.getElementById("attempts").textContent = `Attempts left: ${attempts}`;
@@ -231,6 +234,24 @@
                 (e.ctrlKey && e.key === "U")
             ) {
                 e.preventDefault();
+            }
+        });
+
+        document.getElementById("answer1").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer1();
+            }
+        });
+
+        document.getElementById("answer2").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer2();
+            }
+        });
+
+        document.getElementById("answer").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
             }
         });
     </script>
