@@ -162,5 +162,23 @@
             document.querySelector("button").disabled = true;
         }
     </script>
+
+    <!-- Disable Right-Click and Inspect Element -->
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+        // Disable inspect element (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+        document.addEventListener("keydown", (e) => {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && e.key === "I") || // Ctrl+Shift+I
+                (e.ctrlKey && e.shiftKey && e.key === "J") || // Ctrl+Shift+J
+                (e.ctrlKey && e.key === "U") // Ctrl+U
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
