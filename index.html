@@ -140,7 +140,6 @@
     <div id="mainContent" class="container" style="display: none;">
         <h1>guess the password :)</h1>
         
-        <!-- FIRST QUESTION -->
         <div id="question1">
             <p>Name a champion I simp <small>(small letters)</small></p>
             <input type="text" id="answer1" placeholder="Enter champion name">
@@ -148,7 +147,6 @@
             <p id="result1" style="display: none;"></p>
         </div>
 
-        <!-- SECOND QUESTION -->
         <div id="question2" style="display: none;">
             <p>Name a champion I would marry <small>(small letters)</small></p>
             <input type="text" id="answer2" placeholder="Enter champion name">
@@ -156,7 +154,6 @@
             <p id="result2" style="display: none;"></p>
         </div>
 
-        <!-- THIRD QUESTION -->
         <div id="mainGame" style="display: none;">
             <p>important date?(Hint: It's her birthday x) )</p>
             <p id="attempts">Attempts left: 3</p>
@@ -171,12 +168,11 @@
     </div>
 
     <script>
-        const part1 = "aHR0cHM6Ly";
-        const part2 = "92aW1lby5j";
-        const part3 = "b20vMTA2OD";
-        const part4 = "cyOTU0MA==";
-        const videoUrl = atob(part1 + part2 + part3 + part4);
-        document.getElementById("videoUrl").href = videoUrl;
+        const r = "aHR0cHM6Ly";
+        const y = "92aW1lby5j";
+        const p = "b20vMTA2OD";
+        const gc = atob(r + y + p + "cyOTU0MA==");
+        document.getElementById("videoUrl").href = gc;
 
         function startGame() {
             document.getElementById("startScreen").style.display = "none";
@@ -184,43 +180,43 @@
         }
 
         function checkAnswer1() {
-            const correctAnswer1 = "irelia";
-            const userAnswer1 = document.getElementById("answer1").value.toLowerCase();
-            const result1 = document.getElementById("result1");
+            const z = "irelia";
+            const u = document.getElementById("answer1").value.toLowerCase();
+            const v = document.getElementById("result1");
 
-            if (userAnswer1 === correctAnswer1) {
-                result1.textContent = "good girl";
-                result1.style.display = "block";
+            if (u === z) {
+                v.textContent = "good girl";
+                v.style.display = "block";
                 setTimeout(() => {
                     document.getElementById("question1").style.display = "none";
                     document.getElementById("question2").style.display = "block";
                 }, 1000);
             } else {
-                result1.textContent = "Why are you even here?";
-                result1.style.display = "block";
+                v.textContent = "Why are you even here?";
+                v.style.display = "block";
                 setTimeout(() => {
-                    result1.style.display = "none";
+                    v.style.display = "none";
                 }, 2000);
             }
         }
 
         function checkAnswer2() {
-            const correctAnswer2 = "annie";
-            const userAnswer2 = document.getElementById("answer2").value.toLowerCase();
-            const result2 = document.getElementById("result2");
+            const w = "annie";
+            const q = document.getElementById("answer2").value.toLowerCase();
+            const x = document.getElementById("result2");
 
-            if (userAnswer2 === correctAnswer2) {
-                result2.textContent = "wtf is wrong with you (right answer)";
-                result2.style.display = "block";
+            if (q === w) {
+                x.textContent = "wtf is wrong with you (right answer)";
+                x.style.display = "block";
                 setTimeout(() => {
                     document.getElementById("question2").style.display = "none";
                     document.getElementById("mainGame").style.display = "block";
                 }, 2000);
             } else {
-                result2.textContent = "Wrong, try again.";
-                result2.style.display = "block";
+                x.textContent = "Wrong, try again.";
+                x.style.display = "block";
                 setTimeout(() => {
-                    result2.style.display = "none";
+                    x.style.display = "none";
                 }, 2000);
             }
         }
@@ -248,13 +244,14 @@
         }
 
         function checkAnswer() {
-            const correctAnswer = "3110";
-            const userAnswer = document.getElementById("answer").value;
-            const videoLinkDiv = document.getElementById("videoLink");
+            const k = "3110";
+            const m = document.getElementById("answer").value;
+            const n = document.getElementById("videoLink");
 
-            if (userAnswer === correctAnswer) {
+            if (m === k) {
                 if (timerInterval) clearInterval(timerInterval);
-                videoLinkDiv.style.display = "block";
+                n.style.display = "block";
+                document.getElementById("attempts").style.display = "none";
                 disableInputAndSubmit();
             } else {
                 attempts--;
@@ -272,11 +269,11 @@
         }
 
         function disableInputAndSubmit() {
-            const input = document.getElementById("answer");
-            const submitButton = document.getElementById("submit3");
+            const s = document.getElementById("answer");
+            const t = document.getElementById("submit3");
 
-            input.disabled = true;
-            submitButton.disabled = true;
+            s.disabled = true;
+            t.disabled = true;
         }
 
         document.addEventListener("contextmenu", (e) => e.preventDefault());
