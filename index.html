@@ -61,6 +61,11 @@
             background: #ff4a3d;
             transform: scale(1.05);
         }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
         #videoLink {
             display: none;
             margin-top: 1.5rem;
@@ -94,29 +99,70 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        #startScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #startScreen h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        #startScreen p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        #startScreen button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        #startScreen button:hover {
+            background: #ff4a3d;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>guess the password :)</h1>
-        <p id="question1">Name a champion I simp <small>(small letters)</small></p>
-        <input type="text" id="answer1" placeholder="Enter champion name">
-        <button onclick="checkAnswer1()">Submit</button>
-        <p id="result1" style="display: none;"></p>
+    <div id="startScreen" class="container">
+        <h1>Hello There Nosey Human</h1>
+        <p>This contains a video for one person only to view. To get there, you have to find the password by answering 3 questions.</p>
+        <button onclick="startGame()">Next</button>
+    </div>
 
+    <div id="mainContent" class="container" style="display: none;">
+        <h1>guess the password :)</h1>
+        
+        <!-- FIRST QUESTION -->
+        <div id="question1">
+            <p>Name a champion I simp <small>(small letters)</small></p>
+            <input type="text" id="answer1" placeholder="Enter champion name">
+            <button id="submit1" onclick="checkAnswer1()">Submit</button>
+            <p id="result1" style="display: none;"></p>
+        </div>
+
+        <!-- SECOND QUESTION -->
         <div id="question2" style="display: none;">
             <p>Name a champion I would marry <small>(small letters)</small></p>
             <input type="text" id="answer2" placeholder="Enter champion name">
-            <button onclick="checkAnswer2()">Submit</button>
+            <button id="submit2" onclick="checkAnswer2()">Submit</button>
             <p id="result2" style="display: none;"></p>
         </div>
 
+        <!-- THIRD QUESTION -->
         <div id="mainGame" style="display: none;">
-            <p>(Hint: It's her birthday x) )</p>
+            <p>important date?(Hint: It's her birthday x) )</p>
             <p id="attempts">Attempts left: 3</p>
             <p id="timer">Time left: 20 seconds</p>
             <input type="text" id="answer" placeholder="Enter the date (4 digits)">
-            <button onclick="checkAnswer()">Submit</button>
+            <button id="submit3" onclick="checkAnswer()">Submit</button>
             <div id="videoLink">
                 <p>i miss you so much v_v</p>
                 <a id="videoUrl" target="_blank">click here if you love me</a>
@@ -125,9 +171,17 @@
     </div>
 
     <script>
-        const encodedLink = "aHR0cHM6Ly92aW1lby5jb20vMTA2ODcyOTU0MA==";
-        const videoUrl = atob(encodedLink);
+        const part1 = "aHR0cHM6Ly";
+        const part2 = "92aW1lby5j";
+        const part3 = "b20vMTA2OD";
+        const part4 = "cyOTU0MA==";
+        const videoUrl = atob(part1 + part2 + part3 + part4);
         document.getElementById("videoUrl").href = videoUrl;
+
+        function startGame() {
+            document.getElementById("startScreen").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+        }
 
         function checkAnswer1() {
             const correctAnswer1 = "irelia";
@@ -135,12 +189,10 @@
             const result1 = document.getElementById("result1");
 
             if (userAnswer1 === correctAnswer1) {
-                result1.textContent = "";
+                result1.textContent = "good girl";
                 result1.style.display = "block";
                 setTimeout(() => {
                     document.getElementById("question1").style.display = "none";
-                    document.getElementById("answer1").style.display = "none";
-                    document.querySelector("button").style.display = "none";
                     document.getElementById("question2").style.display = "block";
                 }, 1000);
             } else {
@@ -162,8 +214,6 @@
                 result2.style.display = "block";
                 setTimeout(() => {
                     document.getElementById("question2").style.display = "none";
-                    document.getElementById("answer2").style.display = "none";
-                    document.querySelectorAll("button")[1].style.display = "none";
                     document.getElementById("mainGame").style.display = "block";
                 }, 2000);
             } else {
@@ -191,7 +241,7 @@
                     if (timeLeft <= 0) {
                         clearInterval(timerInterval);
                         alert("Time's up! Fuck off :)");
-                        disableInput();
+                        disableInputAndSubmit();
                     }
                 }, 1000);
             }
@@ -205,6 +255,7 @@
             if (userAnswer === correctAnswer) {
                 if (timerInterval) clearInterval(timerInterval);
                 videoLinkDiv.style.display = "block";
+                disableInputAndSubmit();
             } else {
                 attempts--;
                 document.getElementById("attempts").textContent = `Attempts left: ${attempts}`;
@@ -212,7 +263,7 @@
                 if (attempts === 0) {
                     if (timerInterval) clearInterval(timerInterval);
                     alert("No more attempts. Fuck off :)");
-                    disableInput();
+                    disableInputAndSubmit();
                 } else {
                     alert("fuck off :)");
                     startTimer();
@@ -220,9 +271,12 @@
             }
         }
 
-        function disableInput() {
-            document.getElementById("answer").disabled = true;
-            document.querySelector("button").disabled = true;
+        function disableInputAndSubmit() {
+            const input = document.getElementById("answer");
+            const submitButton = document.getElementById("submit3");
+
+            input.disabled = true;
+            submitButton.disabled = true;
         }
 
         document.addEventListener("contextmenu", (e) => e.preventDefault());
