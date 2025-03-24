@@ -179,12 +179,23 @@
             document.getElementById("mainContent").style.display = "block";
         }
 
+        function getAnswer1() {
+            return String.fromCharCode(105, 114, 101, 108, 105, 97);
+        }
+
+        function getAnswer2() {
+            return String.fromCharCode(97, 110, 110, 105, 101);
+        }
+
+        function getAnswer3() {
+            return String.fromCharCode(51, 49, 49, 48);
+        }
+
         function checkAnswer1() {
-            const z = "irelia";
             const u = document.getElementById("answer1").value.toLowerCase();
             const v = document.getElementById("result1");
 
-            if (u === z) {
+            if (u === getAnswer1()) {
                 v.textContent = "good girl";
                 v.style.display = "block";
                 setTimeout(() => {
@@ -201,11 +212,10 @@
         }
 
         function checkAnswer2() {
-            const w = "annie";
             const q = document.getElementById("answer2").value.toLowerCase();
             const x = document.getElementById("result2");
 
-            if (q === w) {
+            if (q === getAnswer2()) {
                 x.textContent = "wtf is wrong with you (right answer)";
                 x.style.display = "block";
                 setTimeout(() => {
@@ -244,11 +254,10 @@
         }
 
         function checkAnswer() {
-            const k = "3110";
             const m = document.getElementById("answer").value;
             const n = document.getElementById("videoLink");
 
-            if (m === k) {
+            if (m === getAnswer3()) {
                 if (timerInterval) clearInterval(timerInterval);
                 n.style.display = "block";
                 document.getElementById("attempts").style.display = "none";
