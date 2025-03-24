@@ -99,18 +99,78 @@
 <body>
     <div class="container">
         <h1>guess the password :)</h1>
-        <p>(Hint: It's her birthday x) )</p>
-        <p id="attempts">Attempts left: 3</p>
-        <p id="timer">Time left: 20 seconds</p>
-        <input type="text" id="answer" placeholder="Enter the date (4 digits)">
-        <button onclick="checkAnswer()">Submit</button>
-        <div id="videoLink">
-            <p>i miss you so much v_v</p>
-            <a id="videoUrl" target="_blank">click if you love me</a>
+        <p id="question1">Name a champion I simp <small>(small letters)</small></p>
+        <input type="text" id="answer1" placeholder="Enter champion name">
+        <button onclick="checkAnswer1()">Submit</button>
+        <p id="result1" style="display: none;"></p>
+
+        <div id="question2" style="display: none;">
+            <p>Name a champion I would marry <small>(small letters)</small></p>
+            <input type="text" id="answer2" placeholder="Enter champion name">
+            <button onclick="checkAnswer2()">Submit</button>
+            <p id="result2" style="display: none;"></p>
+        </div>
+
+        <div id="mainGame" style="display: none;">
+            <p>(Hint: It's her birthday x) )</p>
+            <p id="attempts">Attempts left: 3</p>
+            <p id="timer">Time left: 20 seconds</p>
+            <input type="text" id="answer" placeholder="Enter the date (4 digits)">
+            <button onclick="checkAnswer()">Submit</button>
+            <div id="videoLink">
+                <p>i miss you so much v_v</p>
+                <a id="videoUrl" target="_blank">click if you love me</a>
+            </div>
         </div>
     </div>
 
     <script>
+        function checkAnswer1() {
+            const correctAnswer1 = "irelia";
+            const userAnswer1 = document.getElementById("answer1").value.toLowerCase();
+            const result1 = document.getElementById("result1");
+
+            if (userAnswer1 === correctAnswer1) {
+                result1.textContent = "";
+                result1.style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("question1").style.display = "none";
+                    document.getElementById("answer1").style.display = "none";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById("question2").style.display = "block";
+                }, 1000);
+            } else {
+                result1.textContent = "Why are you even here?";
+                result1.style.display = "block";
+                setTimeout(() => {
+                    result1.style.display = "none";
+                }, 2000);
+            }
+        }
+
+        function checkAnswer2() {
+            const correctAnswer2 = "annie";
+            const userAnswer2 = document.getElementById("answer2").value.toLowerCase();
+            const result2 = document.getElementById("result2");
+
+            if (userAnswer2 === correctAnswer2) {
+                result2.textContent = "wtf is wrong with you (right answer)";
+                result2.style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("question2").style.display = "none";
+                    document.getElementById("answer2").style.display = "none";
+                    document.querySelectorAll("button")[1].style.display = "none";
+                    document.getElementById("mainGame").style.display = "block";
+                }, 2000);
+            } else {
+                result2.textContent = "Wrong, try again.";
+                result2.style.display = "block";
+                setTimeout(() => {
+                    result2.style.display = "none";
+                }, 2000);
+            }
+        }
+
         let attempts = 3;
         let timeLeft = 20;
         let timerInterval;
@@ -161,20 +221,14 @@
             document.getElementById("answer").disabled = true;
             document.querySelector("button").disabled = true;
         }
-    </script>
 
-    <!-- Disable Right-Click and Inspect Element -->
-    <script>
-        // Disable right-click
         document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Disable inspect element (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
         document.addEventListener("keydown", (e) => {
             if (
                 e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && e.key === "I") || // Ctrl+Shift+I
-                (e.ctrlKey && e.shiftKey && e.key === "J") || // Ctrl+Shift+J
-                (e.ctrlKey && e.key === "U") // Ctrl+U
+                (e.ctrlKey && e.shiftKey && e.key === "I") ||
+                (e.ctrlKey && e.shiftKey && e.key === "J") ||
+                (e.ctrlKey && e.key === "U")
             ) {
                 e.preventDefault();
             }
